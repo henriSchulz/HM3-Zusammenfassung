@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umfassender Lösungsleitfaden für Differentialgleichungen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- KaTeX for LaTeX rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMeaMhDDkX3QCSP8xsy5_wYC_e0wFpTStToxFNdsJeTEHyANK" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlVjOTtrYogAWS+4iCFo6PTFfb5gUgvDylcLPxb52FA9xZXFYosCGrLsRwk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Umfassender Lösungsleitfaden für Differentialgleichungen</h1>
+            <p class="mt-2 text-lg text-gray-600">Ein "Kochbuch" basierend auf dem HM3-Skript und den Übungsaufgaben</p>
+        </header>
+
+        <!-- I. Gewöhnliche Differentialgleichungen -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-6">I. Gewöhnliche Differentialgleichungen (DGL)</h2>
+            <div class="space-y-6">
+                <!-- 1. Trennung der Variablen -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-blue-700">1. Trennung der Variablen</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Für DGLs, die sich in die Form $y'(x) = g(x) \cdot f(y(x))$ bringen lassen.</p>
+                    <p class="mb-4"><strong>Prinzip:</strong> Die Methode basiert darauf, alle von $y$ abhängigen Terme auf die eine und alle von $x$ abhängigen Terme auf die andere Seite der Gleichung zu bringen. Anschließend werden beide Seiten integriert, um die Lösungsfunktion zu erhalten.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li>Schreibe $y'$ als $\frac{dy}{dx}$.</li>
+                            <li>Forme die Gleichung um zu $\frac{1}{f(y)} dy = g(x) dx$.</li>
+                            <li>Integriere beide Seiten: $\int \frac{1}{f(y)} dy = \int g(x) dx + C$.</li>
+                            <li>Löse die resultierende Gleichung nach $y(x)$ auf, falls möglich.</li>
+                        </ol>
+                        <p class="mt-3"><strong>Beispiel:</strong> $y' = -2x \cdot y$</p>
+                        <p>$\frac{dy}{y} = -2x dx \implies \int \frac{1}{y} dy = \int -2x dx \implies \ln|y| = -x^2 + C \implies y(x) = K \cdot e^{-x^2}$</p>
+                    </div>
+                </div>
+
+                <!-- 2. Lineare DGL 1. Ordnung -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-blue-700">2. Lineare DGL 1. Ordnung</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Für DGLs der Form $y'(x) + a(x)y(x) = b(x)$.</p>
+                    <p class="mb-4"><strong>Prinzip:</strong> Die allgemeine Lösung setzt sich additiv aus der allgemeinen Lösung der zugehörigen homogenen Gleichung ($y_h$) und einer speziellen (partikulären) Lösung der inhomogenen Gleichung ($y_p$) zusammen: $y = y_h + y_p$.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen (Variation der Konstanten):</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li><strong>Homogene Lösung:</strong> Löse $y_h' + a(x)y_h = 0$ durch Trennung der Variablen. Das Ergebnis ist $y_h(x) = C \cdot e^{-\int a(x)dx}$.</li>
+                            <li><strong>Partikuläre Lösung:</strong> Ersetze die Konstante $C$ durch eine Funktion $C(x)$ (daher "Variation der Konstanten"). Der Ansatz lautet $y_p(x) = C(x) \cdot e^{-\int a(x)dx}$.</li>
+                            <li>Setze $y_p$ in die ursprüngliche DGL ein. Dies führt auf eine einfache Gleichung für $C'(x)$, aus der $C(x)$ durch Integration bestimmt wird.</li>
+                            <li><strong>Allgemeine Lösung:</strong> $y(x) = y_h(x) + y_p(x)$.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 3. Lineare DGL höherer Ordnung mit konstanten Koeffizienten -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-blue-700">3. Lineare DGL höherer Ordnung mit konstanten Koeffizienten</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Für $y^{(n)} + a_{n-1}y^{(n-1)} + \dots + a_0y = f(x)$ mit konstanten $a_i \in \mathbb{R}$.</p>
+                    <p class="mb-4"><strong>Prinzip:</strong> Auch hier gilt $y = y_h + y_p$.</p>
+                    <div class="bg-gray-100 p-4 rounded-md space-y-4">
+                        <div>
+                            <p class="font-semibold">1. Homogene Lösung ($y_h$):</p>
+                            <p>Der Ansatz $y(x) = e^{\lambda x}$ führt auf das <strong>charakteristische Polynom</strong> $p(\lambda) = \lambda^n + a_{n-1}\lambda^{n-1} + \dots + a_0 = 0$. Die Lösungsbasis hängt von dessen Nullstellen ab:</p>
+                            <ul class="list-disc list-inside mt-2">
+                                <li><strong>Einfache reelle Nullstelle $\lambda$:</strong> $e^{\lambda x}$</li>
+                                <li><strong>$k$-fache reelle Nullstelle $\lambda$:</strong> $e^{\lambda x}, x e^{\lambda x}, \dots, x^{k-1}e^{\lambda x}$</li>
+                                <li><strong>Einfaches komplexes Paar $\lambda = \alpha \pm i\beta$:</strong> $e^{\alpha x}\cos(\beta x), e^{\alpha x}\sin(\beta x)$</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">2. Partikuläre Lösung ($y_p$):</p>
+                            <p>Man verwendet einen <strong>Ansatz vom Typ der rechten Seite</strong>, der von der Form der Störfunktion $f(x)$ abhängt. Ist $f(x)$ z.B. von der Form $P(x)e^{\sigma x}\cos(\omega x)$, so wählt man den Ansatz $y_p(x) = x^k (r_1(x)e^{\sigma x}\cos(\omega x) + r_2(x)e^{\sigma x}\sin(\omega x))$, wobei $r_1, r_2$ Polynome desselben Grades wie $P$ sind. Der Faktor $x^k$ (Resonanzfall) ist notwendig, falls $\sigma + i\omega$ eine $k$-fache Nullstelle des charakteristischen Polynoms ist.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Exakte DGL -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-blue-700">4. Exakte DGL</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Für DGLs der Form $P(x,y)dx + Q(x,y)dy = 0$.</p>
+                    <p class="mb-4"><strong>Prinzip:</strong> Die DGL ist exakt, wenn das Vektorfeld $\vec{v} = (P, Q)$ ein Potentialfeld ist, d.h., es existiert eine Potentialfunktion $F(x,y)$ mit $\nabla F = \vec{v}$. Die Lösungen der DGL sind dann die Niveaulinien dieser Potentialfunktion.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li><strong>Exaktheitsbedingung prüfen:</strong> Ist $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}$? Wenn ja, ist die DGL exakt.</li>
+                            <li><strong>Potentialfunktion $F(x,y)$ bestimmen:</strong>
+                                <ul class="list-disc list-inside ml-4">
+                                    <li>Integriere $P(x,y)$ nach $x$: $F(x,y) = \int P(x,y) dx + c(y)$.</li>
+                                    <li>Leite das Ergebnis nach $y$ ab: $\frac{\partial F}{\partial y} = \frac{\partial}{\partial y} \left( \int P(x,y) dx \right) + c'(y)$.</li>
+                                    <li>Vergleiche dies mit $Q(x,y)$ um $c'(y)$ zu finden: $\frac{\partial F}{\partial y} = Q(x,y)$.</li>
+                                    <li>Integriere $c'(y)$ um $c(y)$ zu erhalten.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Lösung angeben:</strong> Die implizite Lösung lautet $F(x,y) = C$.</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- 5. Potenzreihenansatz -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-blue-700">5. Potenzreihenansatz</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Universelle Methode, besonders bei linearen DGLs mit nicht-konstanten Koeffizienten.</p>
+                    <p class="mb-4"><strong>Prinzip:</strong> Die Lösung $y(x)$ wird als Potenzreihe um einen Entwicklungspunkt (z.B. $x_0=0$) angesetzt. Durch Einsetzen in die DGL und Koeffizientenvergleich wird eine Rekursionsformel für die Koeffizienten der Reihe gefunden.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li>Setze $y(x) = \sum_{n=0}^{\infty} a_n x^n$ und die Reihen für die Ableitungen in die DGL ein.</li>
+                            <li>Führe einen Index-Shift durch, sodass alle Reihen die gleiche Potenz von $x$ (z.B. $x^n$) enthalten.</li>
+                            <li>Fasse die Reihen zusammen. Da die resultierende Reihe für alle $x$ null sein muss, muss jeder Koeffizient null sein (Koeffizientenvergleich).</li>
+                            <li>Dies ergibt eine Rekursionsformel, die $a_{n+k}$ durch frühere Koeffizienten ausdrückt.</li>
+                            <li>Bestimme die Koeffizienten mithilfe von Anfangsbedingungen (z.B. $y(0)=a_0, y'(0)=a_1$).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- II. DGL-Systeme -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-green-500 pb-2 mb-6">II. Differentialgleichungssysteme (DGS)</h2>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-green-700">1. Homogenes System: $\vec{y}'(t) = A\vec{y}(t)$</h3>
+                    <p class="mb-4"><strong>Prinzip:</strong> Die Lösungen werden mithilfe der Eigenwerte und Eigenvektoren der Systemmatrix $A$ konstruiert. Die Menge der $n$ linear unabhängigen Lösungen bildet ein <strong>Fundamentalsystem</strong>, dessen Linearkombination die allgemeine Lösung ist.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen zur Bestimmung eines Fundamentalsystems:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-2">
+                            <li><strong>Eigenwerte $\lambda_i$ bestimmen:</strong> Löse die charakteristische Gleichung $\det(A - \lambda I) = 0$.</li>
+                            <li><strong>Eigenvektoren $\vec{v}_i$ bestimmen:</strong> Löse für jeden Eigenwert $\lambda_i$ das lineare Gleichungssystem $(A - \lambda_i I)\vec{v}_i = \vec{0}$, um den Eigenraum $E_{\lambda_i}$ zu finden.</li>
+                            <li><strong>Basislösungen aufstellen:</strong>
+                                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                                    <li>Ein <strong>reeller Eigenwert $\lambda$</strong> mit Eigenvektor $\vec{v}$ liefert die Basislösung $\vec{y}(t) = e^{\lambda t}\vec{v}$.</li>
+                                    <li>Ein <strong>komplexes Eigenwertpaar $\lambda_{1,2} = \alpha \pm i\beta$</strong> mit zugehörigem Eigenvektor $\vec{v} = \vec{u} + i\vec{w}$ liefert zwei reelle Basislösungen: $\vec{y}_1(t) = \text{Re}(e^{\lambda_1 t}\vec{v})$ und $\vec{y}_2(t) = \text{Im}(e^{\lambda_1 t}\vec{v})$.</li>
+                                    <li>Falls die geometrische Vielfachheit eines Eigenwerts kleiner als seine algebraische ist (Matrix nicht diagonalisierbar), müssen Hauptvektoren zur Vervollständigung der Basis herangezogen werden.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Allgemeine Lösung:</strong> Die allgemeine Lösung ist die Linearkombination der $n$ Basislösungen $\vec{y}_i(t)$: $\vec{y}_h(t) = C_1 \vec{y}_1(t) + \dots + C_n \vec{y}_n(t)$.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-green-700">2. Inhomogenes System: $\vec{y}'(t) = A\vec{y}(t) + \vec{b}(t)$</h3>
+                    <p class="mb-4"><strong>Prinzip:</strong> Die allgemeine Lösung ist die Summe der allgemeinen homogenen Lösung $\vec{y}_h(t)$ und einer partikulären Lösung $\vec{y}_p(t)$ des inhomogenen Systems.</p>
+                    <div class="bg-gray-100 p-4 rounded-md space-y-4">
+                        <div>
+                            <p class="font-semibold">Methode 1: Variation der Konstanten</p>
+                            <p>Sei $\Phi(t) = (\vec{y}_1(t) | \dots | \vec{y}_n(t))$ die Fundamentalmatrix aus den Basislösungen.</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1">
+                                <li>Mache den Ansatz für die partikuläre Lösung: $\vec{y}_p(t) = \Phi(t)\vec{c}(t)$.</li>
+                                <li>Einsetzen in das DGS führt auf $\Phi(t)\vec{c}'(t) = \vec{b}(t)$.</li>
+                                <li>Löse nach $\vec{c}'(t)$ auf: $\vec{c}'(t) = \Phi(t)^{-1}\vec{b}(t)$.</li>
+                                <li>Integriere, um $\vec{c}(t)$ zu erhalten: $\vec{c}(t) = \int \Phi(t)^{-1}\vec{b}(t) dt$.</li>
+                                <li>Die partikuläre Lösung ist dann $\vec{y}_p(t) = \Phi(t) \int \Phi(t)^{-1}\vec{b}(t) dt$.</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Methode 2: Lösungsformel mit Matrix-Exponentialfunktion</p>
+                            <p>Die Lösung des Anfangswertproblems $\vec{y}'=A\vec{y}+\vec{b}(t)$ mit $\vec{y}(t_0)=\vec{y}_0$ ist direkt gegeben durch:</p>
+                            $$ \vec{y}(t) = e^{A(t-t_0)}\vec{y}_0 + \int_{t_0}^{t} e^{A(t-s)}\vec{b}(s)ds $$
+                            <p class="mt-2">Hierbei ist $e^{At} = \sum_{n=0}^{\infty} \frac{(At)^n}{n!}$ die Matrix-Exponentialfunktion. Sie ist selbst die Fundamentalmatrix $\Phi(t)$ mit der Eigenschaft $\Phi(0)=I$.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-green-700">3. Picard-Iteration</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Ein iteratives Verfahren zur approximativen Lösung von Anfangswertproblemen der Form $\vec{y}'(t) = F(t, \vec{y}(t))$, $\vec{y}(t_0) = \vec{y}_0$. Es ist die Grundlage für den Existenz- und Eindeutigkeitssatz von Picard-Lindelöf.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li>Formuliere die DGL als Integralgleichung: $\vec{y}(t) = \vec{y}_0 + \int_{t_0}^t F(s, \vec{y}(s)) ds$.</li>
+                            <li>Starte mit der konstanten Funktion $\vec{y}_0(t) = \vec{y}_0$.</li>
+                            <li>Berechne iterativ die nächste Näherung mit der Formel:
+                            $$ \vec{y}_{n+1}(t) = \vec{y}_0 + \int_{t_0}^t F(s, \vec{y}_n(s)) ds $$
+                            </li>
+                            <li>Die Folge der Funktionen $(\vec{y}_n(t))$ konvergiert unter bestimmten Voraussetzungen gegen die exakte Lösung.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- III. Partielle DGL & Fourier-Analyse -->
+        <section>
+            <h2 class="text-2xl font-bold border-b-2 border-purple-500 pb-2 mb-6">III. Partielle DGL & Fourier-Analyse</h2>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-purple-700">1. Separationsansatz (Produktansatz)</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Mächtige Methode für lineare, homogene partielle DGLs (z.B. Wärmeleitungs-, Wellengleichung) auf <strong>beschränkten Gebieten</strong> mit homogenen Randbedingungen.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen im Detail:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-2">
+                            <li><strong>Ansatz:</strong> Setze $u(x,t) = V(x)W(t)$ in die PDGL ein.</li>
+                            <li><strong>Separation:</strong> Forme die Gleichung so um, dass alle von $x$ abhängigen Terme auf einer Seite und alle von $t$ abhängigen auf der anderen stehen. Zum Beispiel: $\frac{W'(t)}{cW(t)} = \frac{V''(x)}{V(x)}$.</li>
+                            <li><strong>Separationskonstante:</strong> Da beide Seiten von unterschiedlichen Variablen abhängen, müssen sie gleich einer Konstanten sein, z.B. $-\lambda^2$. Dies ergibt zwei gewöhnliche DGLs: $W'(t) = -c\lambda^2 W(t)$ und $V''(x) = -\lambda^2 V(x)$.</li>
+                            <li><strong>Eigenwertproblem lösen:</strong> Löse die DGL für $V(x)$ unter Berücksichtigung der Randbedingungen des Problems. Dies führt dazu, dass nur für bestimmte Werte von $\lambda$ (die Eigenwerte) nicht-triviale Lösungen $V_n(x)$ (die Eigenfunktionen) existieren.</li>
+                            <li><strong>Zeitliche Entwicklung:</strong> Löse die DGL für $W(t)$ für jeden gefundenen Eigenwert, um $W_n(t)$ zu erhalten.</li>
+                            <li><strong>Superposition:</strong> Die allgemeine Lösung ist eine Überlagerung (unendliche Summe) aller Basislösungen $u_n(x,t) = V_n(x)W_n(t)$:
+                            $$ u(x,t) = \sum_{n=1}^{\infty} C_n u_n(x,t) = \sum_{n=1}^{\infty} C_n V_n(x)W_n(t) $$
+                            Die Koeffizienten $C_n$ sind zunächst unbekannt.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-purple-700">2. Anwendung von Fourierreihen zur Lösung von Anfangswertproblemen</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Bestimmung der Koeffizienten $C_n$ aus dem Superpositionsprinzip, um eine spezifische Anfangsbedingung $u(x,0) = f(x)$ zu erfüllen.</p>
+                    <div class="bg-gray-100 p-4 rounded-md">
+                        <p class="font-semibold">Vorgehen:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-2">
+                            <li><strong>Anfangsbedingung einsetzen:</strong> Setze $t=0$ in die allgemeine Lösung ein:
+                            $$ u(x,0) = f(x) = \sum_{n=1}^{\infty} C_n V_n(x)W_n(0) $$
+                            (Oft ist $W_n(0)=1$, sodass $f(x) = \sum C_n V_n(x)$.)</li>
+                            <li><strong>Reihenentwicklung:</strong> Erkenne, dass dies eine Entwicklung der Funktion $f(x)$ nach den Eigenfunktionen $V_n(x)$ ist. Für viele Standardprobleme (z.B. Saite, Stab) sind die $V_n(x)$ Sinus- oder Kosinusfunktionen, und die Reihe ist eine <strong>Fourierreihe</strong>.</li>
+                            <li><strong>Fourierkoeffizienten berechnen:</strong> Die Koeffizienten $C_n$ werden durch Ausnutzung der Orthogonalität der Eigenfunktionen berechnet. Für eine T-periodische Funktion gilt:
+                            $$ a_n = \frac{2}{T}\int_{-T/2}^{T/2} f(x)\cos\left(\frac{2n\pi x}{T}\right) dx, \quad b_n = \frac{2}{T}\int_{-T/2}^{T/2} f(x)\sin\left(\frac{2n\pi x}{T}\right) dx $$
+                            <strong>Tipp:</strong> Ist $f(x)$ eine gerade Funktion, sind alle $b_n=0$. Ist $f(x)$ ungerade, sind alle $a_n=0$.</li>
+                            <li><strong>Endgültige Lösung:</strong> Setze die berechneten Koeffizienten in die allgemeine Lösung $u(x,t)$ ein, um die eindeutige Lösung des Anfangs-Randwert-Problems zu erhalten.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-xl mb-3 text-purple-700">3. Fouriertransformation & d'Alembert-Lösung</h3>
+                    <p class="mb-2"><strong>Anwendung:</strong> Lösung von PDGL auf <strong>unbeschränkten Gebieten</strong> (z.B. $x \in \mathbb{R}$).</p>
+                    <div class="bg-gray-100 p-4 rounded-md space-y-4">
+                        <div>
+                            <p class="font-semibold">Fouriertransformation (z.B. für Wärmeleitungsgleichung $u_t = c u_{xx}$)</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1">
+                                <li>Wende die Fouriertransformation $\mathcal{F}$ bezüglich der Ortsvariablen $x$ auf die PDGL an. Ableitungen werden zu Multiplikationen: $\mathcal{F}(u_{xx})(\omega) = (i\omega)^2 \hat{u}(\omega,t) = -\omega^2\hat{u}(\omega,t)$.</li>
+                                <li>Dies ergibt eine gewöhnliche DGL für $\hat{u}(\omega, t)$ in der Zeitvariablen $t$: $\frac{\partial}{\partial t}\hat{u}(\omega,t) = -c\omega^2 \hat{u}(\omega,t)$.</li>
+                                <li>Löse diese DGL. Die Lösung ist $\hat{u}(\omega,t) = \hat{u}(\omega,0) e^{-c\omega^2 t} = \hat{f}(\omega)e^{-c\omega^2 t}$.</li>
+                                <li>Transformiere die Lösung zurück. Oft wird hier der Faltungssatz verwendet: $\mathcal{F}(g*h) = \hat{g}\cdot\hat{h}$. Die Lösung ist dann eine Faltung der Anfangsbedingung mit dem sogenannten Wärmeleitungskern.</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <p class="font-semibold">d'Alembert-Lösung (für Wellengleichung $u_{tt} = c^2 u_{xx}$)</p>
+                            <p>Die Wellengleichung kann durch einen Koordinatenwechsel auf zwei lineare Transportgleichungen zurückgeführt werden. Die allgemeine Lösung für das Anfangswertproblem mit $u(x,0)=f(x)$ und $u_t(x,0)=g(x)$ ist direkt gegeben durch die <strong>d'Alembert'sche Formel</strong>:</p>
+                            $$ u(x,t) = \frac{1}{2}(f(x-ct) + f(x+ct)) + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s) ds $$
+                            <p class="mt-2">Diese Formel beschreibt die Lösung als Überlagerung von zwei Wellen, die sich mit Geschwindigkeit $c$ in entgegengesetzte Richtungen ausbreiten.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
